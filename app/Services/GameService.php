@@ -36,7 +36,14 @@ class GameService
     }
 
     public static function generateNumber() {
-        $number = strval(rand(1000, 9999)); // Generate a random 4-digit number
+        $digits = range(0, 9);
+        shuffle($digits);
+
+        // Ensure the first digit is not 0
+        while ($digits[0] === 0) {
+            shuffle($digits);
+        }
+        $number =  implode('', array_slice($digits, 0, 4));
         if(in_array($number[0], [4, 5]) || in_array($number[2], [4, 5])){
             return self::generateNumber();
         }
@@ -55,20 +62,22 @@ class GameService
 
         $guessArray = str_split($guess);
         $secretArray = str_split($secret);
-
         $cows = 0;
         $bulls = 0;
-        // 9999 , 7997 //
+
         for ($i = 0; $i < 4; $i++) {
             if ($guessArray[$i] === $secretArray[$i]) {
                 $secretArray[$i] = "_";
                 $bulls++;
             }
-
         }
         for ($i = 0; $i < 4; $i++) {
             $pos = array_search($guessArray[$i], $secretArray);
-            if ($pos) {
+            if($pos === 0){
+                $secretArray[$pos] = "_";
+                $cows++;
+            }
+            else if($pos){
                 $secretArray[$pos] = "_";
                 $cows++;
             }

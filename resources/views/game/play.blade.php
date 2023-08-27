@@ -5,12 +5,11 @@
 @section('content')
     <p>Guess the secret code!</p>
     <input type="hidden" id="username" value="{{$username}}">
-    <input type="hidden" id="number" value="{{$number}}">
     <input type="hidden" id="win" value="0">
 
-    <div id="score" style="display: none;">
+    <div id="scoreDiv" style="display: none;">
         Score:
-        <p>0</p>
+        <p id="score">0</p>
     </div>
 
 

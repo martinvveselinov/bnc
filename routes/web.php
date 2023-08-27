@@ -16,6 +16,7 @@ use App\Http\Controllers\AjaxController;
 */
 
 Route::middleware(['web'])->group(function () {
+    Route::get('/', [GameController::class, 'startNewGame'])->name('new-game');
     Route::get('/new-game', [GameController::class, 'startNewGame'])->name('new-game');
     Route::post('/play-game', [GameController::class, 'playGame'])->name('play-game');
     Route::post('/make-guess', [GameController::class, 'makeGuess'])->name('make-guess');
